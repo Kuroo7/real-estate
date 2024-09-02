@@ -135,6 +135,11 @@ const Profile = () => {
       console.log(currentUser._id);
       
       const res = await fetch(`https://real-estate-9kj2.onrender.com/api/user/listings/${currentUser._id}`)
+
+      if (!res.ok) {
+        throw new Error('Failed to fetch user listings');
+      }
+
       const data = await res.json();
       
       console.log(data);
