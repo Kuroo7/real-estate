@@ -9,7 +9,7 @@ import cors from 'cors';
 dotenv.config();
 
 const corsOptions = {
-    origin: 'http://localhost:3000',
+    origin: 'https://benevolent-unicorn-4f391e.netlify.app/',
     credentials: true,
 };
 const app = express();
