@@ -5,33 +5,41 @@ import userRouter from "./routes/user.route.js"
 import authRouter from "./routes/auth.route.js"
 import listingRouter from "./routes/listing.route.js"
 import cookieParser from "cookie-parser"
+import cors from 'cors';
 dotenv.config();
 
-const app=express();
+const corsOptions = {
+    origin: 'http://localhost:3000',
+    credentials: true,
+};
+app.use(cors(corsOptions));
+const app = express();
+
+
 
 mongoose.connect(process.env.MONGO_URI)
-.then(()=>{
-    console.log("Connected to Database");   
+    .then(() => {
+        console.log("Connected to Database");
 
-    app.listen(3000,()=>{
-        console.log("Listening to port 3000");
+        app.listen(3000, () => {
+            console.log("Listening to port 3000");
+        })
+    }).catch((err) => {
+        console.log(err);
     })
-}).catch((err)=>{
-    console.log(err);
-})
 
 app.use(express.json())
 app.use(cookieParser())
 
-app.use("/api/user",userRouter)
-app.use("/api/auth",authRouter)
-app.use("/api/listing",listingRouter)
+app.use("/api/user", userRouter)
+app.use("/api/auth", authRouter)
+app.use("/api/listing", listingRouter)
 
-app.use((err,req,res,next)=>{
-    const statusCode=err.statusCode || 500;
+app.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
     const message = err.message || "Internal server error"
     return res.status(statusCode).json({
-        success:false,
+        success: false,
         statusCode,
         message,
     })
