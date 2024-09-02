@@ -67,7 +67,7 @@ const Profile = () => {
     try {
       dispatch(updateUserStart());
 
-      const res = await fetch(`/api/user/update/${currentUser._id}`,
+      const res = await fetch(`https://real-estate-9kj2.onrender.com/api/user/update/${currentUser._id}`,
         {
           method: 'POST',
           headers: {
@@ -94,7 +94,7 @@ const Profile = () => {
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`,
+      const res = await fetch(`https://real-estate-9kj2.onrender.com/api/user/delete/${currentUser._id}`,
         {
           method: 'DELETE',
         }
@@ -116,7 +116,7 @@ const Profile = () => {
   const handleSignOut = async () => {
     try {
       dispatch(signOutStart())
-      const res = await fetch(`/api/auth/signout`)
+      const res = await fetch(`https://real-estate-9kj2.onrender.com/api/auth/signout`)
       const data = res.json();
       if (data.success === false) {
         dispatch(signOutFailure(error))
@@ -132,14 +132,18 @@ const Profile = () => {
     
     try {
       setShowListingError(false)
-      const res = await fetch(`/api/user/listings/${currentUser._id}`)
+      console.log(currentUser._id);
+      
+      const res = await fetch(`https://real-estate-9kj2.onrender.com/api/user/listings/${currentUser._id}`)
       const data = await res.json();
       
+      console.log(data);
       if (data.success === false) {
         showListingError(true)
         return
       }
       setUserListings(data)
+      
       
       // eslint-disable-next-line no-unused-vars
     } catch (error) {
@@ -148,7 +152,7 @@ const Profile = () => {
   }
   const handleListingDelete =async(listingId)=>{
     try {
-      const res = await fetch(`/api/listing/delete/${listingId}`,{
+      const res = await fetch(`https://real-estate-9kj2.onrender.com/api/listing/delete/${listingId}`,{
         method:"DELETE",
       })
       const data = res.json()
@@ -156,7 +160,7 @@ const Profile = () => {
         console.log(data.message);
         return        
       }
-      setUserListing((prev)=> prev.filter((listing)=>listing._id!==listingId))
+      setUserListings((prev)=> prev.filter((listing)=>listing._id!==listingId))
     } catch (error) {
       console.log(error.message);
     }

@@ -27,7 +27,7 @@ const SignIn = () => {
     try {
       
       dispatch(signInStart())
-      const res = await fetch('/api/auth/signin',
+      const res = await fetch('https://real-estate-9kj2.onrender.com/api/auth/signin',
         {
           method: 'POST',
           headers: {
@@ -87,4 +87,4 @@ const SignIn = () => {
   )
 }
 
-export default SignIn
+export default SignIn;

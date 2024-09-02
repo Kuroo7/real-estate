@@ -110,7 +110,7 @@ const CreateListing = () => {
             if (+formData.regularPrice < +formData.discountPrice) return setError("Discount price must be less than regular price")
             setLoading(true);
             setError(false);
-            const res = await fetch(`/api/listing/create`, {
+            const res = await fetch(`https://real-estate-9kj2.onrender.com/api/listing/create`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -121,6 +121,7 @@ const CreateListing = () => {
 
                 })
             })
+
             const data = await res.json()
             setLoading(false)
             if (data.success === false) {
@@ -128,7 +129,7 @@ const CreateListing = () => {
                 setError(data.message)
             }
             
-            navigate(`/listing/${data._id}`)
+            // navigate(`/listing/${data._id}`)
 
         } catch (error) {
             console.log(error);

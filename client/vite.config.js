@@ -7,7 +7,7 @@ export default defineConfig({
     proxy:{
       '/api':{
         // target:"http://localhost:3000",
-        target:"https://real-estate-9kj2.onrender.com",
+        // target:"https://real-estate-9kj2.onrender.com",
 
         secure:false, 
       }
