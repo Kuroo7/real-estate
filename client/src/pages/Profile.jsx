@@ -67,9 +67,11 @@ const Profile = () => {
     try {
       dispatch(updateUserStart());
 
-      const res = await fetch(`/api/user/update/${currentUser._id}`,
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/user/update/${currentUser._id}`,
         {
           method: 'POST',
+          
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },
@@ -94,9 +96,11 @@ const Profile = () => {
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`/api/user/delete/${currentUser._id}`,
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/user/delete/${currentUser._id}`,
         {
           method: 'DELETE',
+          
+          credentials: 'include',
         }
       )
       const data = res.json();
@@ -116,7 +120,7 @@ const Profile = () => {
   const handleSignOut = async () => {
     try {
       dispatch(signOutStart())
-      const res = await fetch(`/api/auth/signout`)
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/auth/signout`)
       const data = res.json();
       if (data.success === false) {
         dispatch(signOutFailure(error))
@@ -140,8 +144,9 @@ const Profile = () => {
     try {
       setShowListingError(false)
       
-      const res = await fetch(`/api/user/listings/${currentUser._id}`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/user/listings/${currentUser._id}`, {
         method: 'GET',
+        
         headers: {
           'Content-Type': 'application/json',
         },
@@ -170,8 +175,10 @@ const Profile = () => {
   }
   const handleListingDelete =async(listingId)=>{
     try {
-      const res = await fetch(`/api/listing/delete/${listingId}`,{
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/listing/delete/${listingId}`,{
         method:"DELETE",
+        
+        credentials: 'include',
       })
       const data = res.json()
       if(data.success ===false){

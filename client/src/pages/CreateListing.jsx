@@ -110,8 +110,10 @@ const CreateListing = () => {
             if (+formData.regularPrice < +formData.discountPrice) return setError("Discount price must be less than regular price")
             setLoading(true);
             setError(false);
-            const res = await fetch(`/api/listing/create`, {
+            const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/listing/create`, {
                 method: 'POST',
+
+                credentials: 'include',
                 headers: {
                     'Content-Type': 'application/json',
                 },
@@ -128,8 +130,8 @@ const CreateListing = () => {
 
                 setError(data.message)
             }
-            
-            // navigate(`/listing/${data._id}`)
+
+            navigate(`/listing/${data._id}`)
 
         } catch (error) {
             console.log(error);
@@ -307,7 +309,7 @@ const CreateListing = () => {
                             </div>
                         ))
                     }
-                    <button disabled={loading||uploading} className="p-2 bg-slate-700 text-white rounded-lg hover:opacity-95 disabled:opacity-80 uppercase" > {loading ? "creating..." : "Create Listing"}</button>
+                    <button disabled={loading || uploading} className="p-2 bg-slate-700 text-white rounded-lg hover:opacity-95 disabled:opacity-80 uppercase" > {loading ? "creating..." : "Create Listing"}</button>
                     {error &&
                         <p className="text-red-700 text-sm">{error}</p>
                     }

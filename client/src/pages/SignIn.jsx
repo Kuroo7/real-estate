@@ -27,9 +27,10 @@ const SignIn = () => {
     try {
 
       dispatch(signInStart())
-      const res = await fetch(`/api/auth/signin`,
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/auth/signin`,
         {
           method: 'POST',
+          credentials: 'include',
           headers: {
             'Content-Type': 'application/json',
           },

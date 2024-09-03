@@ -36,7 +36,7 @@ export default function UpdateListing() {
   useEffect(() => {
     const fetchListing = async () => {
       const listingId = params.listingId;
-      const res = await fetch(`/api/listing/get/${listingId}`);
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/listing/get/${listingId}`);
       const data = await res.json();
       if (data.success === false) {
         console.log(data.message);
@@ -150,8 +150,10 @@ export default function UpdateListing() {
       setLoading(true);
       setError(false);
       
-      const res = await fetch(`/api/listing/update/${params.listingId}`, {
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/listing/update/${params.listingId}`, {
         method: 'POST',
+        
+        credentials: 'include',
         headers: {
           'Content-Type': 'application/json',
         },
@@ -186,7 +188,7 @@ export default function UpdateListing() {
             className='border p-3 rounded-lg'
             id='name'
             maxLength='62'
-            minLength='10'
+            minLength='5'
             required
             onChange={handleChange}
             value={formData.name}
@@ -292,7 +294,7 @@ export default function UpdateListing() {
               <input
                 type='number'
                 id='regularPrice'
-                min='50'
+                min='1'
                 max='10000000'
                 required
                 className='p-3 border border-gray-300 rounded-lg'
