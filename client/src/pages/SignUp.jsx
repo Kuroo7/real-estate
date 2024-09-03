@@ -23,7 +23,7 @@ const SignUp = () => {
     try {
       
       setLoading(true)
-      const res = await fetch('https://real-estate-9kj2.onrender.com/api/auth/signup',
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/auth/signup`,
         {
           method: 'POST',
           headers: {

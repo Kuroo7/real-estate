@@ -14,7 +14,7 @@ const OAuth = () => {
 
       const result =await signInWithPopup(auth,provider)
 
-      const res = await fetch('https://real-estate-9kj2.onrender.com/api/auth/google',{
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/auth/google`,{
         method:"POST",
         headers:{
           'Content-Type':'application/json',

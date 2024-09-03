@@ -31,7 +31,7 @@ const Listing = () => {
         try {
             const fetchListing = async () => {
                 setLoading(true)
-                const res = await fetch(`https://real-estate-9kj2.onrender.com/api/listing/get/${params.listingId}`)
+                const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/listing/get/${params.listingId}`)
                 const data = await res.json()
                 if (data.success === false) {
 

@@ -11,11 +11,11 @@ export default function Home() {
   const [saleListings, setSaleListings] = useState([]);
   const [rentListings, setRentListings] = useState([]);
   SwiperCore.use([Navigation]);
-  console.log(offerListings);
+  // console.log(offerListings);
   useEffect(() => {
     const fetchOfferListings = async () => {
       try {
-        const res = await fetch('https://real-estate-9kj2.onrender.com/api/listing/get?offer=true&limit=4');
+        const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/listing/get?offer=true&limit=4`);
         const data = await res.json();
         setOfferListings(data);
         fetchRentListings();
@@ -25,7 +25,9 @@ export default function Home() {
     };
     const fetchRentListings = async () => {
       try {
-        const res = await fetch('https://real-estate-9kj2.onrender.com/api/listing/get?type=rent&limit=4');
+        const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/listing/get?type=rent&limit=4`);
+        // console.log(res);
+        
         const data = await res.json();
         setRentListings(data);
         fetchSaleListings();
@@ -36,7 +38,7 @@ export default function Home() {
 
     const fetchSaleListings = async () => {
       try {
-        const res = await fetch('https://real-estate-9kj2.onrender.com/api/listing/get?type=sale&limit=4');
+        const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/listing/get?type=sale&limit=4`);
         const data = await res.json();
         setSaleListings(data);
       } catch (error) {

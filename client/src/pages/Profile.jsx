@@ -67,7 +67,7 @@ const Profile = () => {
     try {
       dispatch(updateUserStart());
 
-      const res = await fetch(`https://real-estate-9kj2.onrender.com/api/user/update/${currentUser._id}`,
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/user/update/${currentUser._id}`,
         {
           method: 'POST',
           headers: {
@@ -94,7 +94,7 @@ const Profile = () => {
   const handleDeleteUser = async () => {
     try {
       dispatch(deleteUserStart());
-      const res = await fetch(`https://real-estate-9kj2.onrender.com/api/user/delete/${currentUser._id}`,
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/user/delete/${currentUser._id}`,
         {
           method: 'DELETE',
         }
@@ -116,7 +116,7 @@ const Profile = () => {
   const handleSignOut = async () => {
     try {
       dispatch(signOutStart())
-      const res = await fetch(`https://real-estate-9kj2.onrender.com/api/auth/signout`)
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/auth/signout`)
       const data = res.json();
       if (data.success === false) {
         dispatch(signOutFailure(error))
@@ -129,20 +129,33 @@ const Profile = () => {
     }
   }
   const handleShowListings = async () => {
+
+    if (!currentUser || !currentUser._id) {
+      console.error('User ID is not available');
+      setShowListingError(true);
+      return;
+    }
+  
     
     try {
       setShowListingError(false)
-      console.log(currentUser._id);
       
-      const res = await fetch(`https://real-estate-9kj2.onrender.com/api/user/listings/${currentUser._id}`)
-
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/user/listings/${currentUser._id}`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        credentials: 'include', 
+      });
+      // console.log(res.json());
+      const data = await res.json();
+      console.log(data);
+      
       if (!res.ok) {
         throw new Error('Failed to fetch user listings');
       }
 
-      const data = await res.json();
       
-      console.log(data);
       if (data.success === false) {
         showListingError(true)
         return
@@ -157,7 +170,7 @@ const Profile = () => {
   }
   const handleListingDelete =async(listingId)=>{
     try {
-      const res = await fetch(`https://real-estate-9kj2.onrender.com/api/listing/delete/${listingId}`,{
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/listing/delete/${listingId}`,{
         method:"DELETE",
       })
       const data = res.json()

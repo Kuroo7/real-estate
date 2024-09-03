@@ -1,16 +1,16 @@
 import { useState } from "react"
-import { Link,useNavigate } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useSelector, useDispatch } from 'react-redux'
-import { signInStart,signInSuccess,signInFailure } from "../redux/user/userSlice"
+import { signInStart, signInSuccess, signInFailure } from "../redux/user/userSlice"
 import OAuth from "../components/OAuth"
 
 const SignIn = () => {
 
-  const navigate =useNavigate()
+  const navigate = useNavigate()
 
   const [formData, setFormData] = useState({})
 
-  const {loading,error} = useSelector(state=>state.user)
+  const { loading, error } = useSelector(state => state.user)
 
   const dispatch = useDispatch()
 
@@ -25,9 +25,9 @@ const SignIn = () => {
   const handleSubmit = async (e) => {
     e.preventDefault()
     try {
-      
+
       dispatch(signInStart())
-      const res = await fetch('https://real-estate-9kj2.onrender.com/api/auth/signin',
+      const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/auth/signin`,
         {
           method: 'POST',
           headers: {
@@ -41,6 +41,7 @@ const SignIn = () => {
         dispatch(signInFailure(data.message))
         return
       }
+
       dispatch(signInSuccess(data))
       navigate('/')
     } catch (err) {
@@ -71,9 +72,9 @@ const SignIn = () => {
           disabled={loading}
           className="bg-slate-700 text-white p-3 rounded-lg uppercase hover:opacity-95 disabled:opacity-80"
         >
-          {loading?'Loading...':'Sign In'}
+          {loading ? 'Loading...' : 'Sign In'}
         </button>
-        <OAuth/>
+        <OAuth />
       </form>
       <div className="flex gap-2 mt-5">
         <p>Don&apos;t Have an account?</p>

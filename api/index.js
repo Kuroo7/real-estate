@@ -8,12 +8,14 @@ import cookieParser from "cookie-parser"
 import cors from 'cors';
 dotenv.config();
 
-const corsOptions = {
-    origin:['http://localhost:5173', 'https://benevolent-unicorn-4f391e.netlify.app/'], 
-    credentials: true,
-};
+
 const app = express();
-app.use(cors(corsOptions));
+app.use(cors({
+    origin: ['http://localhost:5173','https://estatebyatif.netlify.app'],
+    credentials: true,
+}));
+app.use(cookieParser())
+app.use(express.json())
 
 
 
@@ -28,8 +30,7 @@ mongoose.connect(process.env.MONGO_URI)
         console.log(err);
     })
 
-app.use(express.json())
-app.use(cookieParser())
+
 
 app.use("/api/user", userRouter)
 app.use("/api/auth", authRouter)

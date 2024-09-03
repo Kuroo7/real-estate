@@ -13,7 +13,7 @@ export default function Contact({ listing }) {
   useEffect(() => {
     const fetchLandlord = async () => {
       try {
-        const res = await fetch(`https://real-estate-9kj2.onrender.com/api/user/${listing.userRef}`);
+        const res = await fetch(`${import.meta.env.VITE_SERVER_PREFIX}/api/user/${listing.userRef}`);
         const data = await res.json();
         setLandlord(data);
       } catch (error) {
