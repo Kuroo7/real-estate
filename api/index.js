@@ -11,7 +11,7 @@ dotenv.config();
 
 const app = express();
 app.use(cors({
-    origin: ['http://localhost:5173','https://estatebyatif.netlify.app'],
+    origin: ['http://localhost:5173','https://estatebyshruti.netlify.app'],
     credentials: true,
 }));
 app.use(cookieParser())
